@@ -1,4 +1,4 @@
-var intervalo;
+var intervalo = null;
 var $turno = {
   toPlay: "you",
   position: 0,
@@ -57,9 +57,23 @@ function statusTurno(){
     prepareEspectador(configuration);
 }
 
+function updateTurnoTimer(){
+    var secAtual = Number($("#turno_timer").text());
+    $("#turno_timer").text(++secAtual);
+
+    if(secAtual >= 30){
+      selectAnswer(true);
+    }
+}
+
 $(document).ready(function(){
   statusTurno();
   setInterval(function(){
     statusTurno();
   }, 2000);
+  $("#get_question").on("click",function(){
+    intervalo = setInterval(function(){
+    updateTurnoTimer();
+    }, 1000);
+  });
 });

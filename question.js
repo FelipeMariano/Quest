@@ -1,24 +1,12 @@
 function answer(answer){
-  var response = {};
-  response["answered"] = true;
 
   var response = getResponseForRandomQuestion(answer);
-
-  console.log(response);
+    if(answer.question === 0 && answer.choice === 0)
+      response["answered"] = false;
+    else
+      response["answered"] = true;
 
   answerResponse(response);
-  // $.ajax({
-  //   url: "url",
-  //   type: "POST",
-  //   cache: false,
-  //   data: answer,
-  //   success: function(response){
-  //     console.log(response);
-  //   },
-  //   error: function(response){
-  //     console.log("ERROR!");
-  //   }
-  // });
 }
 
 function answerResponse(response){
@@ -26,12 +14,12 @@ function answerResponse(response){
     $("#answer_result").text("Não respondido :(");
   }else if(response.correct){
       $("#answer_result").text("Resposta correta");
-
       walk($selectedFicha.valor);
       $selectedFicha = null;
   }else{
     $("#answer_result").text("Resposta errada");
   }
+  $("#turno_timer").text("0");
 }
 
 function getQuestion(configuration, callback){
