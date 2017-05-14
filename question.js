@@ -2,12 +2,9 @@ function answer(answer){
   var response = {};
   response["answered"] = true;
 
-  if(answer.question === 0 && answer.choice === 0){
-    response["correct"] = false;
-    response["answered"] = false;
-  }
+  var response = getResponseForRandomQuestion(answer);
 
-  response["correct"] =  answer.choice === 1;
+  console.log(response);
 
   answerResponse(response);
   // $.ajax({
@@ -38,30 +35,7 @@ function answerResponse(response){
 }
 
 function getQuestion(configuration, callback){
-  console.log(configuration);
-
-  var question = {
-    "id": 2,
-    "enunciado": "this is real world?",
-    "respostas": {
-      "a": {
-        "id": 1,
-        "valor": "yes"
-      },
-      "b": {
-        "id": 2,
-        "valor": "no"
-      },
-      "c": {
-        "id": 3,
-        "valor": "maybe"
-      },
-      "d": {
-        "id": 4,
-        "valor": "really?"
-      }
-    }
-  }
+  var question = getRandomQuestion();
 
   callback(question);
 }
