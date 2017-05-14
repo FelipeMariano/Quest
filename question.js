@@ -1,5 +1,11 @@
 function answer(answer){
   var response = {};
+  response["answered"] = true;
+
+  if(answer.question === 0 && answer.choice === 0){
+    response["correct"] = false;
+    response["answered"] = false;
+  }
 
   response["correct"] =  answer.choice === 1;
 
@@ -19,7 +25,9 @@ function answer(answer){
 }
 
 function answerResponse(response){
-  if(response.correct){
+  if(!response.answered){
+    $("#answer_result").text("Não respondido :(");
+  }else if(response.correct){
       $("#answer_result").text("Resposta correta");
 
       walk($selectedFicha.valor);
@@ -58,12 +66,21 @@ function getQuestion(configuration, callback){
   callback(question);
 }
 
-function selectAnswer(){
+function selectAnswer(notAnswered){
+  clearInterval(intervalo);
+
+  if(notAnswered){
+    var answer = {
+      "question": 0,
+      "choice": 0
+    }
+  }else{
   var answerValue = $("input[name='answer']:checked").val();
   var answer = {
     "question": $turno.question.id,
     "choice": Number(answerValue)
   }
+}
   this.answer(answer);
   $turno.question = null;
 }

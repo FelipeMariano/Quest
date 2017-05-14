@@ -6,6 +6,8 @@ var $turno = {
   answers: 0
 }
 
+var intervalo;
+
 /////////////////////////////////////////
 
 
@@ -56,9 +58,28 @@ function statusTurno(){
     prepareEspectador(configuration);
 }
 
+function updateTurnoTimer(){
+
+
+  var atual = Number($("#turno_timer").text());
+  $("#turno_timer").text(++atual);
+
+  if(atual >= 30){
+    console.log("já deu 30 secs");
+    selectAnswer(true);
+  }
+}
+
 $(document).ready(function(){
   statusTurno();
   setInterval(function(){
     statusTurno();
   }, 2000);
+
+$("#get_question").on("click", function(){
+  intervalo = setInterval(function(){
+    updateTurnoTimer();
+  }, 1000);
+});
+
 });
