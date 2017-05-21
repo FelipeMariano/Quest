@@ -42,6 +42,7 @@ function toggleFicha($fichaComponent){
     $selectedFicha = $fichas[fichaValue];
 
     $(".ficha").removeClass("btn-success");
+    $(".ficha").removeClass("selected_ficha");
     $fichaComponent.addClass("btn-success");
     $fichaComponent.addClass("selected_ficha");
 
